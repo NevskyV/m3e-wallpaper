@@ -1,0 +1,27 @@
+[package]
+name = "m3e-wallpaper"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79"
+repository = "https://github.com/NevskyV/m3e-wallpaper"
+description = "Material 3 Expressive Wallpaper Generator"
+license = "MIT"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+image = { version = "0.25", default-features = false, features = ["png"] }
+material-color-utilities-rust = "0.1"
+
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.62", features = ["Foundation", "Storage", "Storage_Streams", "System_UserProfile"] }
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"
